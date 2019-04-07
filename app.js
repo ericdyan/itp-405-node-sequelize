@@ -60,7 +60,12 @@ app.patch('/api/tracks/:id', function(request, response) {
       unitPrice: request.body.unitPrice
     }, { where: {id: id}})
     .then((updated) => {
-      response.status(200).json(updated);
+      response.status(200).json({
+        updated: updated,
+        name: request.body.name,
+        milliseconds: request.body.milliseconds,
+        unitPrice: request.body.unitPrice
+      });
     }, (validation) => {
       response.status(422).json({
         errors: validation.errors.map((error) => {
@@ -77,22 +82,22 @@ app.patch('/api/tracks/:id', function(request, response) {
 });
 
 
-app.post('/api/artists', function(request, response) {
-  Artist.create({
-    name: request.body.name
-  }).then((artist) => {
-    response.json(artist);
-  }, (validation) => {
-    response.status(422).json({
-      errors: validation.errors.map((error) => {
-        return {
-          attribute: error.path,
-          message: error.message
-        };
-      })
-    });
-  });
-});
+// app.post('/api/artists', function(request, response) {
+//   Artist.create({
+//     name: request.body.name
+//   }).then((artist) => {
+//     response.json(artist);
+//   }, (validation) => {
+//     response.status(422).json({
+//       errors: validation.errors.map((error) => {
+//         return {
+//           attribute: error.path,
+//           message: error.message
+//         };
+//       })
+//     });
+//   });
+// });
 
 app.get('/api/playlists', function(request, response) {
   let filter = {};

@@ -6,7 +6,8 @@ module.exports = sequelize.define('track', {
   id : {
     field: 'TrackId',
     type: Sequelize.INTEGER,
-    primaryKey: true
+    primaryKey: true,
+    autoIncrement: true
   },
   name: {
     field: 'Name',

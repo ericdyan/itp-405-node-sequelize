@@ -60,7 +60,12 @@ app.patch('/api/tracks/:id', function(request, response) {
       unitPrice: request.body.unitPrice
     }, { where: {id: id}})
     .then((updated) => {
-      response.status(200).json(updated);
+      response.status(200).json({
+        updated: updated,
+        name: request.body.name,
+        milliseconds: request.body.milliseconds,
+        unitPrice: request.body.unitPrice
+      });
     }, (validation) => {
       response.status(422).json({
         errors: validation.errors.map((error) => {
